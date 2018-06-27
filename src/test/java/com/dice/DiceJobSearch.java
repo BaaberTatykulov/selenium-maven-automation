@@ -1,5 +1,6 @@
 package com.dice;
 
+import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -54,7 +55,7 @@ public class DiceJobSearch {
 		String count = driver.findElement(By.id("posiCountId")).getText();
 		System.out.println(count);
 		// ensure count is more than 0
-		int countResult = Integer.parseInt(count.replaceAll(",", ""));
+		int countResult = Integer.parseInt(count.replace(",", ""));
 		
 		if(countResult > 0) {
 			System.out.println("Step PASS: Keyword : " + keyword + " search reterned " 
@@ -66,7 +67,7 @@ public class DiceJobSearch {
 		}
 		
 		driver.close();
-
+		System.out.println("Test completed -  "+ LocalDateTime.now());
 	}
 
 }
