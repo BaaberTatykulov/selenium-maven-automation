@@ -10,12 +10,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class DiceJobSearch {
-
+	
+	private static WebDriver driver;
+	private static String url;
+	private static String actualTitle;
+	private static String expectedTitle;
+	
 	public static void main(String[] args) {
 		// Set up chrome driver path
 		WebDriverManager.chromedriver().setup();
 		// invoke selenium webdriver
-		WebDriver driver = new ChromeDriver();
+		driver = new ChromeDriver();
 		// fullcreen
 		driver.manage().window().maximize();
 		// set universal wait time in case web page is slow
@@ -28,20 +33,14 @@ public class DiceJobSearch {
 		 */
 
 		// url variable
-		String url = "https://dice.com";
+		url = "https://dice.com";
 		// open webSite
 		driver.get(url);
 
-		String actualTitle = driver.getTitle();
-		String expectedTitle = "Job Search for Technology Professionals | Dice.com";
+		actualTitle = driver.getTitle();
+		expectedTitle = "Job Search for Technology Professionals | Dice.com";
 
-		if (actualTitle.equals(expectedTitle)) {
-			System.out.println("Step PASS. Dice homepage succesufulle loaded");
-		} else {
-			System.out.println("Step FAIL. Dice homepage did not load succesfully");
-			throw new RuntimeException("Step FAIL. Dice homepage did not load succesfully");
-		}
-
+		verifyTitle(expectedTitle,actualTitle);
 		String keyword = "java developer";
 		driver.findElement(By.id("search-field-keyword")).clear();
 		driver.findElement(By.id("search-field-keyword")).sendKeys(keyword);
@@ -68,6 +67,18 @@ public class DiceJobSearch {
 		
 		driver.close();
 		System.out.println("Test completed -  "+ LocalDateTime.now());
+	}
+	
+	private static boolean verifyTitle(String expectedTitle, String actualTitle) {
+		boolean isOk=false;
+		if (actualTitle.equals(expectedTitle)) {
+			System.out.println("Step PASS. Dice homepage succesufulle loaded");
+		} else {
+			System.out.println("Step FAIL. Dice homepage did not load succesfully");
+			throw new RuntimeException("Step FAIL. Dice homepage did not load succesfully");
+		}
+		return isOk;
+
 	}
 
 }
