@@ -2,7 +2,9 @@ package com.dice;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
+import org.apache.commons.logging.impl.Log4JLogger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,10 +17,15 @@ public class DiceJobSearch {
 	private static String url;
 	private static String actualTitle;
 	private static String expectedTitle;
+	private static Log4JLogger LOG=new Log4JLogger();
 	
+	private DiceJobSearch() {
+		LOG.info("Singleton example");
+	}
 	public static void main(String[] args) {
 		// Set up chrome driver path
 		WebDriverManager.chromedriver().setup();
+		LOG.info("Initializing Chrome driver");
 		// invoke selenium webdriver
 		driver = new ChromeDriver();
 		// fullcreen
@@ -71,6 +78,7 @@ public class DiceJobSearch {
 	
 	private static boolean verifyTitle(String expectedTitle, String actualTitle) {
 		boolean isOk=false;
+		LOG.info("Title verification");
 		if (actualTitle.equals(expectedTitle)) {
 			System.out.println("Step PASS. Dice homepage succesufulle loaded");
 		} else {
@@ -80,5 +88,6 @@ public class DiceJobSearch {
 		return isOk;
 
 	}
+	
 
 }
